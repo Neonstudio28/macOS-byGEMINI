@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Apple macOS 26 Tahoe Design Tokens */
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Consolas", monospace;
+  
+  --accent: #007AFF;
+  --accent-dark: #0A84FF;
+  --accent-glow: rgba(0, 122, 255, 0.35);
+
+  /* Dark Mode Default Variables */
+  --window-bg: rgba(28, 28, 30, 0.82);
+  --window-bg-active: rgba(32, 32, 36, 0.86);
+  --sidebar-bg: rgba(20, 20, 22, 0.70);
+  --content-bg: rgba(16, 16, 18, 0.88);
+  --text-main: rgba(255, 255, 255, 0.92);
+  --text-muted: rgba(255, 255, 255, 0.50);
+  
+  --menu-bg: rgba(30, 30, 34, 0.88);
+  --dock-bg-dark: rgba(30, 30, 35, 0.56);
+  
+  --hairline-border: rgba(255, 255, 255, 0.13);
+  --specular-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.30);
+  
+  --shadow-window: 0 28px 90px rgba(0, 0, 0, 0.70), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  --shadow-menu: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+  --shadow-dock: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+
+  --titlebar-bg: linear-gradient(180deg, rgba(60, 60, 66, 0.65) 0%, rgba(44, 44, 48, 0.55) 100%);
+  --topbar-bg: rgba(0, 0, 0, 0.35);
+  
+  --radius-window: 14px;
+  --radius-dock: 22px;
+  --radius-dock-icon: 22.37%;
+  --radius-menu: 10px;
+}
+
+/* System-Wide Light Mode Theme Variables */
+[data-theme="light"] {
+  --window-bg: rgba(246, 246, 248, 0.85);
+  --window-bg-active: rgba(255, 255, 255, 0.90);
+  --sidebar-bg: rgba(235, 235, 238, 0.80);
+  --content-bg: rgba(255, 255, 255, 0.95);
+  --text-main: #1d1d1f;
+  --text-muted: rgba(0, 0, 0, 0.55);
+
+  --menu-bg: rgba(242, 242, 245, 0.92);
+  --dock-bg-dark: rgba(255, 255, 255, 0.52);
+
+  --hairline-border: rgba(0, 0, 0, 0.12);
+  --specular-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+  --shadow-window: 0 28px 90px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.12);
+  --shadow-menu: 0 16px 48px rgba(0, 0, 0, 0.20), 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+  --shadow-dock: 0 20px 60px rgba(0, 0, 0, 0.22), 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+
+  --titlebar-bg: linear-gradient(180deg, rgba(240, 240, 245, 0.92) 0%, rgba(225, 225, 230, 0.88) 100%);
+  --topbar-bg: rgba(255, 255, 255, 0.50);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-ui);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  overflow: hidden;
+  color: var(--text-main);
+  background: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Liquid Glass Engine ───────────────────────────── */
+.macos-glass {
+  backdrop-filter: url(#lg-refraction) blur(32px) saturate(200%);
+  -webkit-backdrop-filter: url(#lg-refraction) blur(32px) saturate(200%);
+  background: var(--window-bg);
+  box-shadow: var(--shadow-window);
+  border: 1px solid var(--hairline-border);
+  color: var(--text-main);
+}
+
+.macos-glass-light {
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-window);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+}
+
+/* ── Menu System ──────────────────────────────────── */
+.macos-menu {
+  border-radius: var(--radius-menu);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  background: var(--menu-bg);
+  box-shadow: var(--shadow-menu);
+  border: 1px solid var(--hairline-border);
+  color: var(--text-main);
+}
+
+.macos-menu-item {
+  font-size: 13px;
+  padding: 3px 12px;
+  border-radius: 5px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.08s ease;
+  white-space: nowrap;
+}
+
+.macos-menu-item:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.macos-menu-separator {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--hairline-border);
+}
+
+/* ── Dock ─────────────────────────────────────────── */
+.macos-dock {
+  border-radius: var(--radius-dock);
+  backdrop-filter: url(#lg-refraction) blur(32px) saturate(190%);
+  -webkit-backdrop-filter: url(#lg-refraction) blur(32px) saturate(190%);
+  background: var(--dock-bg-dark);
+  box-shadow: var(--specular-highlight), inset 0 0 0 0.5px var(--hairline-border), var(--shadow-dock);
+  border: 1px solid var(--hairline-border);
+}
+
+/* ── App Icons ────────────────────────────────────── */
+.macos-app-icon {
+  border-radius: var(--radius-dock-icon);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 0 0 0.5px rgba(255, 255, 255, 0.30);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.22s ease;
+}
+
+.macos-app-icon:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), inset 0 0 0 0.5px rgba(255, 255, 255, 0.40);
+}
+
+.macos-app-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.04) 45%, 
+    rgba(0, 0, 0, 0.18) 100%
+  );
+}
+
+/* ── Traffic Lights ───────────────────────────────── */
+.traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: filter 0.12s ease;
+  flex-shrink: 0;
+}
+
+.traffic-light svg {
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+
+.traffic-group:hover .traffic-light svg {
+  opacity: 1;
+}
+
+.traffic-group:hover .traffic-light {
+  filter: brightness(1.08);
+}
+
+/* ── Scrollbars (macOS-style) ─────────────────────── */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(140, 140, 145, 0.35);
+  border-radius: 9999px;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 140, 145, 0.65);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ── Window Animation ─────────────────────────────── */
+.window-transition {
+  transition: transform 0.26s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.22s ease;
+}
+
+.window-minimized {
+  transform: scale(0.08) translateY(2000px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Code / Terminal ──────────────────────────────── */
+.matrix-glow {
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+}
+
+/* ── Responsive Scaling ───────────────────────────── */
+@media (max-width: 1024px) {
+  .macos-dock { 
+    transform: scale(0.88);
+    transform-origin: center bottom;
+  }
+}
+
+@media (max-width: 768px) {
+  .macos-dock { 
+    transform: scale(0.72);
+    transform-origin: center bottom;
+  }
+}
+
+/* ── Selection Color ──────────────────────────────── */
+::selection {
+  background: rgba(0, 122, 255, 0.4);
+  color: inherit;
+}
+
+/* ── Window Titlebar Gradient ──────────────── */
+.window-titlebar {
+  background: var(--titlebar-bg);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+}

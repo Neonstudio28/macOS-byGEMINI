@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full overflow-hidden select-none" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>macOS 26 Tahoe — ValOS Liquid Glass Edition</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="h-full w-full overflow-hidden bg-black text-slate-100 font-sans antialiased">
+    <div id="root" class="h-full w-full"></div>
+
+    <!-- Liquid Glass SVG Refraction Filter (Chromium Optical Distortion Engine) -->
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute; pointer-events:none;">
+      <defs>
+        <filter id="lg-refraction" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="2.2" result="soft" />
+          <feDisplacementMap in="SourceGraphic" in2="soft" scale="12" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
